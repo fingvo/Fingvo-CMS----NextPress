@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useTransition } from "react";
@@ -105,163 +106,162 @@ export function ContentEditor({ isNew, contentType }: ContentEditorProps) {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-3">
-      <div className="lg:col-span-2">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <Card>
-              <CardHeader>
-                <CardTitle>{isNew ? "Create" : "Edit"} {contentType}</CardTitle>
-                <CardDescription>
-                  Fill in the details below to create your new {contentType}.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="title"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Title</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your awesome title" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="content"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Content</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Start writing your masterpiece..."
-                          className="min-h-[300px] font-mono text-sm"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </CardContent>
-            </Card>
-            <Button type="submit">Save {contentType}</Button>
-          </form>
-        </Form>
-      </div>
-      <div className="lg:col-span-1 space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>AI Content Optimizer</CardTitle>
-            <CardDescription>
-              Refine your content for better engagement.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <FormField
-                control={form.control}
-                name="targetAudience"
-                render={({ field }) => (
-                <FormItem>
-                    <FormLabel>Target Audience</FormLabel>
-                    <FormControl>
-                        <Input placeholder="e.g., Developers, Marketers" {...field} />
-                    </FormControl>
-                </FormItem>
-                )}
-            />
-            <FormField
-                control={form.control}
-                name="engagementGoal"
-                render={({ field }) => (
-                <FormItem>
-                    <FormLabel>Engagement Goal</FormLabel>
-                    <FormControl>
-                        <Input placeholder="e.g., More shares, comments" {...field} />
-                    </FormControl>
-                </FormItem>
-                )}
-            />
-             <FormField
-                control={form.control}
-                name="stylePreferences"
-                render={({ field }) => (
-                <FormItem>
-                    <FormLabel>Style Preferences</FormLabel>
-                    <FormControl>
-                        <Input placeholder="e.g., Casual, professional" {...field} />
-                    </FormControl>
-                </FormItem>
-                )}
-            />
-            <Button onClick={handleOptimize} disabled={isPending} className="w-full">
-              {isPending ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Optimizing...
-                </>
-              ) : (
-                <>
-                  <Wand2 className="mr-2 h-4 w-4" />
-                  Optimize with AI
-                </>
-              )}
-            </Button>
-          </CardContent>
-        </Card>
-        
-        {isPending && (
-             <Card>
-                <CardContent className="p-6 text-center">
-                    <Loader2 className="mx-auto h-8 w-8 animate-spin text-muted-foreground" />
-                    <p className="mt-2 text-sm text-muted-foreground">Generating suggestions...</p>
-                </CardContent>
-            </Card>
-        )}
-
-        {aiResult && (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2 space-y-8">
           <Card>
             <CardHeader>
-                <CardTitle>AI Suggestion</CardTitle>
+              <CardTitle>{isNew ? "Create" : "Edit"} {contentType}</CardTitle>
+              <CardDescription>
+                Fill in the details below to create your new {contentType}.
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-                <div>
-                    <h4 className="font-semibold text-sm mb-2">Optimized Content</h4>
-                    <div className="relative rounded-md border bg-muted p-4 text-sm font-code">
-                        <Button
-                            size="icon"
-                            variant="ghost"
-                            className="absolute top-2 right-2 h-7 w-7"
-                            onClick={copyToClipboard}
-                        >
-                            {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                        </Button>
-                        {aiResult.optimizedContent}
-                    </div>
-                </div>
-                <div>
-                    <h4 className="font-semibold text-sm mb-2">Suggested Styles</h4>
-                    <div className="flex flex-wrap gap-2">
-                        {aiResult.suggestedStyles.map((style, i) => (
-                            <Badge key={i} variant="secondary">{style}</Badge>
-                        ))}
-                    </div>
-                </div>
-                 <div>
-                    <h4 className="font-semibold text-sm mb-2">Explanation</h4>
-                    <p className="text-sm text-muted-foreground italic">
-                        &quot;{aiResult.explanation}&quot;
-                    </p>
-                </div>
-                <Button onClick={applySuggestion} className="w-full">Apply Suggestion</Button>
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Title</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Your awesome title" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="content"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Content</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Start writing your masterpiece..."
+                        className="min-h-[300px] font-mono text-sm"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </CardContent>
           </Card>
-        )}
-      </div>
-    </div>
+          <Button type="submit">Save {contentType}</Button>
+        </div>
+        <div className="lg:col-span-1 space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>AI Content Optimizer</CardTitle>
+              <CardDescription>
+                Refine your content for better engagement.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <FormField
+                  control={form.control}
+                  name="targetAudience"
+                  render={({ field }) => (
+                  <FormItem>
+                      <FormLabel>Target Audience</FormLabel>
+                      <FormControl>
+                          <Input placeholder="e.g., Developers, Marketers" {...field} />
+                      </FormControl>
+                  </FormItem>
+                  )}
+              />
+              <FormField
+                  control={form.control}
+                  name="engagementGoal"
+                  render={({ field }) => (
+                  <FormItem>
+                      <FormLabel>Engagement Goal</FormLabel>
+                      <FormControl>
+                          <Input placeholder="e.g., More shares, comments" {...field} />
+                      </FormControl>
+                  </FormItem>
+                  )}
+              />
+               <FormField
+                  control={form.control}
+                  name="stylePreferences"
+                  render={({ field }) => (
+                  <FormItem>
+                      <FormLabel>Style Preferences</FormLabel>
+                      <FormControl>
+                          <Input placeholder="e.g., Casual, professional" {...field} />
+                      </FormControl>
+                  </FormItem>
+                  )}
+              />
+              <Button onClick={handleOptimize} disabled={isPending} className="w-full" type="button">
+                {isPending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Optimizing...
+                  </>
+                ) : (
+                  <>
+                    <Wand2 className="mr-2 h-4 w-4" />
+                    Optimize with AI
+                  </>
+                )}
+              </Button>
+            </CardContent>
+          </Card>
+          
+          {isPending && (
+               <Card>
+                  <CardContent className="p-6 text-center">
+                      <Loader2 className="mx-auto h-8 w-8 animate-spin text-muted-foreground" />
+                      <p className="mt-2 text-sm text-muted-foreground">Generating suggestions...</p>
+                  </CardContent>
+              </Card>
+          )}
+
+          {aiResult && (
+            <Card>
+              <CardHeader>
+                  <CardTitle>AI Suggestion</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                  <div>
+                      <h4 className="font-semibold text-sm mb-2">Optimized Content</h4>
+                      <div className="relative rounded-md border bg-muted p-4 text-sm font-code">
+                          <Button
+                              size="icon"
+                              variant="ghost"
+                              className="absolute top-2 right-2 h-7 w-7"
+                              onClick={copyToClipboard}
+                              type="button"
+                          >
+                              {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                          </Button>
+                          {aiResult.optimizedContent}
+                      </div>
+                  </div>
+                  <div>
+                      <h4 className="font-semibold text-sm mb-2">Suggested Styles</h4>
+                      <div className="flex flex-wrap gap-2">
+                          {aiResult.suggestedStyles.map((style, i) => (
+                              <Badge key={i} variant="secondary">{style}</Badge>
+                          ))}
+                      </div>
+                  </div>
+                   <div>
+                      <h4 className="font-semibold text-sm mb-2">Explanation</h4>
+                      <p className="text-sm text-muted-foreground italic">
+                          &quot;{aiResult.explanation}&quot;
+                      </p>
+                  </div>
+                  <Button onClick={applySuggestion} className="w-full" type="button">Apply Suggestion</Button>
+              </CardContent>
+            </Card>
+          )}
+        </div>
+      </form>
+    </Form>
   );
 }
