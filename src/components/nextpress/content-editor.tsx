@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, Wand2, Copy, Check, Calendar as CalendarIcon, Save } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { OptimizeContentEngagementOutput } from "@/ai/flows/optimize-content-engagement";
