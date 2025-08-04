@@ -23,7 +23,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, Wand2, Copy, Check, Calendar as CalendarIcon, Save } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -33,6 +32,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { Editor } from "@tinymce/tinymce-react";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Title must be at least 2 characters." }),
@@ -152,10 +152,24 @@ export function ContentEditor({ isNew, contentType }: ContentEditorProps) {
                   <FormItem>
                     <FormLabel>Content</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder="Start writing your masterpiece..."
-                        className="min-h-[300px] font-mono text-sm"
-                        {...field}
+                       <Editor
+                        apiKey="no-api-key"
+                        value={field.value}
+                        onEditorChange={(content) => field.onChange(content)}
+                        init={{
+                          height: 500,
+                          menubar: false,
+                          plugins: [
+                            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap',
+                            'preview', 'anchor', 'searchreplace', 'visualblocks', 'code',
+                            'fullscreen', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
+                          ],
+                          toolbar: 'undo redo | blocks | ' +
+                            'bold italic forecolor | alignleft aligncenter ' +
+                            'alignright alignjustify | bullist numlist outdent indent | ' +
+                            'removeformat | help',
+                          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                        }}
                       />
                     </FormControl>
                     <FormMessage />
