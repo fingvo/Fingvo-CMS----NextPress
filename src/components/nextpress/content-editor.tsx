@@ -153,7 +153,7 @@ export function ContentEditor({ isNew, contentType }: ContentEditorProps) {
                     <FormLabel>Content</FormLabel>
                     <FormControl>
                        <Editor
-                        apiKey="no-api-key"
+                        apiKey="cgwzpv6z7t4ht8z6eksz1pi3rl5cm4matgzk6w6uq47s73l4"
                         value={field.value}
                         onEditorChange={(content) => field.onChange(content)}
                         init={{
