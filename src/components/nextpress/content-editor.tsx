@@ -15,18 +15,30 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2, Wand2, Copy, Check } from "lucide-react";
+import { Loader2, Wand2, Copy, Check, Calendar as CalendarIcon, Save } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { OptimizeContentEngagementOutput } from "@/ai/flows/optimize-content-engagement";
 import { useToast } from "@/hooks/use-toast";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: "Title must be at least 2 characters." }),
   content: z.string().min(10, { message: "Content must be at least 10 characters." }),
+  status: z.enum(["draft", "published", "scheduled"]),
+  publishedAt: z.date().optional(),
   targetAudience: z.string().optional(),
   engagementGoal: z.string().optional(),
   stylePreferences: z.string().optional(),
@@ -49,11 +61,14 @@ export function ContentEditor({ isNew, contentType }: ContentEditorProps) {
     defaultValues: {
       title: "",
       content: "",
+      status: "draft",
       targetAudience: "",
       engagementGoal: "",
       stylePreferences: "",
     },
   });
+
+  const watchStatus = form.watch("status");
 
   const handleOptimize = async () => {
     const { content, targetAudience, engagementGoal, stylePreferences } = form.getValues();
@@ -108,7 +123,7 @@ export function ContentEditor({ isNew, contentType }: ContentEditorProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6">
           <Card>
             <CardHeader>
               <CardTitle>{isNew ? "Create" : "Edit"} {contentType}</CardTitle>
@@ -149,9 +164,87 @@ export function ContentEditor({ isNew, contentType }: ContentEditorProps) {
               />
             </CardContent>
           </Card>
-          <Button type="submit">Save {contentType}</Button>
         </div>
         <div className="lg:col-span-1 space-y-6">
+           <Card>
+            <CardHeader>
+              <CardTitle>Publish</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+               <FormField
+                  control={form.control}
+                  name="status"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Status</FormLabel>
+                       <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a status" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="draft">Draft</SelectItem>
+                          <SelectItem value="published">Published</SelectItem>
+                          <SelectItem value="scheduled">Scheduled</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                {watchStatus === 'scheduled' && (
+                  <FormField
+                    control={form.control}
+                    name="publishedAt"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Publish Date</FormLabel>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant={"outline"}
+                                className={cn(
+                                  "w-full pl-3 text-left font-normal",
+                                  !field.value && "text-muted-foreground"
+                                )}
+                              >
+                                {field.value ? (
+                                  format(field.value, "PPP")
+                                ) : (
+                                  <span>Pick a date</span>
+                                )}
+                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              disabled={(date) =>
+                                date < new Date() || date < new Date("1900-01-01")
+                              }
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+            </CardContent>
+             <CardFooter className="justify-end">
+                <Button type="submit">
+                    <Save className="mr-2 h-4 w-4" />
+                    Save {contentType}
+                </Button>
+            </CardFooter>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle>AI Content Optimizer</CardTitle>
