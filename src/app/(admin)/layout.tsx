@@ -13,6 +13,7 @@ import {
   Users,
   PanelLeft,
   BotMessageSquare,
+  LogOut,
 } from "lucide-react";
 
 import {
@@ -188,7 +189,12 @@ export default function AdminLayout({
                     <DropdownMenuItem>Billing</DropdownMenuItem>
                     <DropdownMenuItem>Settings</DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Log out</DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/login">
+                        <LogOut className="mr-2 h-4 w-4" />
+                        Log out
+                      </Link>
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         </SidebarFooter>
