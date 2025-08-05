@@ -1,6 +1,6 @@
-# 🏗 FingvoCMS – Open Source CMS like WordPress (Under Development)
+# 🏗 FingvoCMS – Open Source CMS (Under Development)
 
-FingvoCMS is a **modern, open-source Content Management System (CMS)** designed to be a **WordPress alternative**, built with **Next.js (React.js) for the frontend** and **PHP + MySQL for the backend**, fully deployable on standard **PHP hosting (e.g., Hostinger)**.
+FingvoCMS is a **modern, open-source Content Management System (CMS)** built with **Next.js (React.js) for the frontend** and **PHP + MySQL for the backend**, fully deployable on standard **PHP hosting (e.g., Hostinger)**.
 
 > 🚀 Currently under active development. Public open-source release coming soon.
 
@@ -8,12 +8,12 @@ FingvoCMS is a **modern, open-source Content Management System (CMS)** designed 
 
 ## 👨‍💻 Developer
 **Sohail MN (aka Fingvo)** – Creator & Lead Developer of FingvoCMS.  
-📧 Contact: [sohailmndev@gmail.com] 
+📧 Contact: [sohailmndev@gmail.com]
 
 ---
 
 ## 🎯 Vision & Purpose
-The goal of FingvoCMS is to combine the simplicity of **WordPress** with the speed and flexibility of **modern frontend technologies**.  
+The goal of FingvoCMS is to provide a fast, flexible, and developer-friendly CMS solution.  
 - Open-source, community-driven.
 - Easy to deploy on shared PHP hosting.
 - Plugin & theme ecosystem.
@@ -46,7 +46,7 @@ The goal of FingvoCMS is to combine the simplicity of **WordPress** with the spe
 
 ### 4️⃣ Backend (PHP + MySQL)
 - REST API + GraphQL endpoints.
-- Plugin architecture (hooks & filters, like WordPress).
+- Plugin architecture (hooks & filters).
 - Theme manager (React themes).
 - Admin dashboard (React-based UI).
 - PHP file system for media and plugins.
@@ -75,7 +75,7 @@ The goal of FingvoCMS is to combine the simplicity of **WordPress** with the spe
 
 ### 9️⃣ Deployment
 - Compatible with Hostinger and other shared PHP hosting.
-- One-click installer (like WordPress).
+- One-click installer.
 - `.htaccess` support for clean URLs.
 - CLI installer for developers.
 
