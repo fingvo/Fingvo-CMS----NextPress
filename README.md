@@ -8,7 +8,7 @@ FingvoCMS is a **modern, open-source Content Management System (CMS)** designed 
 
 ## 👨‍💻 Developer
 **Sohail MN (aka Fingvo)** – Creator & Lead Developer of FingvoCMS.  
-📧 Contact: [sohailmndev@gmail.com] *(Replace with actual email if needed)*
+📧 Contact: [sohailmndev@gmail.com] 
 
 ---
 
